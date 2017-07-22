@@ -37,8 +37,8 @@
 
       function calcEveryList() {
         var list = $('.list');
-        var hours = 0;
         $.each(list, function(k, v){
+          var hours = 0;
           var labels = $(v).find('.card-label');
           $.each(labels, function(k2, v2){
             var result = v2.title.match(/(\d)h/);
