@@ -25,9 +25,9 @@
         var labels = $('.card-label');
         var hours = 0;
         $.each(labels, function(k, v){
-          var result = v.title.match(/(\d)h/);
+          var result = v.title.match(/(\d+\.?\d*)h/);
           if (result != null) {
-            hours += parseInt(result[1]);
+            hours += parseFloat(result[1]);
           }
         });
         if (hours > 0) {
@@ -41,9 +41,9 @@
           var hours = 0;
           var labels = $(v).find('.card-label');
           $.each(labels, function(k2, v2){
-            var result = v2.title.match(/(\d)h/);
+            var result = v2.title.match(/(\d+\.?\d*)h/);
             if (result != null) {
-              hours += parseInt(result[1]);
+              hours += parseFloat(result[1]);
             }
           });
           var target = $(v).find('.list-header')[0];
