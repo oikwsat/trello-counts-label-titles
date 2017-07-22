@@ -21,7 +21,7 @@
       });
       $('.board-header-btn.board-header-btn-name').append(time_label);
 
-      function calc() {
+      function calcTotal() {
         var labels = $('.card-label');
         var hours = 0;
         $.each(labels, function(k, v){
@@ -47,14 +47,23 @@
             }
           });
           var target = $(v).find('.list-header')[0];
-          $(target).append('<h3>' + hours + 'h</h3>');
+          var time_label = $(target).find('h3')[0];
+          if (time_label === undefined) {
+            $(target).append('<h3>' + hours + 'h</h3>');
+          } else {
+            $(time_label)[0].innerText = hours + 'h';
+          }
         });
+      }
+
+      function calc() {
+        calcTotal();
+        calcEveryList();
       }
 
       calc_btn.bind('click', calc);
       $('div.board-header').append(calc_btn);
       calc();
-      calcEveryList();
     }
 
     setTimeout(put_time_label, 1000);
