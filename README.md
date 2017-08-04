@@ -1,4 +1,4 @@
-# Counter of card labels in Trello
+# LabelCounter for Trello
 This is Chrome Extension of counts the card label titles on Trello.
 ![image](ExampleImage.png)
 
