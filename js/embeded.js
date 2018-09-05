@@ -21,6 +21,9 @@
       });
       $('.board-header-btn.board-header-btn-name').append(time_label);
 
+      /**
+       * calc for all cards
+       */
       function calcTotal() {
         var labels = $('.card-label');
         var hours = 0;
@@ -31,10 +34,15 @@
           }
         });
         if (hours > 0) {
-          $('#time-label')[0].innerText = hours + 'h';
+          $('#time_label')[0].innerText = hours + 'h (' + labels.length + 'cards)';
+        } else {
+          $('#time_label')[0].innerText = labels.length + 'cards';
         }
       }
 
+      /**
+       * calc for cards each list
+       */
       function calcEveryList() {
         var list = $('.list');
         $.each(list, function(k, v){
@@ -48,10 +56,11 @@
           });
           var target = $(v).find('.list-header')[0];
           var time_label = $(target).find('h3')[0];
+          var text = hours + 'h (' + labels.length + 'cards)';
           if (time_label === undefined) {
-            $(target).append('<h3>' + hours + 'h</h3>');
+            $(target).append('<h3>' + text + '</h3>');
           } else {
-            $(time_label)[0].innerText = hours + 'h';
+            $(time_label)[0].innerText = text;
           }
         });
       }
