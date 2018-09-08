@@ -1,6 +1,6 @@
 (function (callback) {
   var script = document.createElement('script');
-  script.setAttribute('src', '//code.jquery.com/jquery-2.2.4.min.js');
+  script.setAttribute('src', '//code.jquery.com/jquery-3.3.1.min.js');
   script.addEventListener('load', function() {
     var script = document.createElement('script');
     script.textContent = '(' + callback.toString() + ')(jQuery.noConflict(true));';
