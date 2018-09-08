@@ -4,9 +4,9 @@ This is Chrome Extension of counts the card label titles on Trello.
 
 
 # Summary
-It will use the card label for time. ex.) 1h, 2h, 4h, 8h
+It will use the card labels for time. ex.) 1h, 2h, 4h, 8h
 
-This Extension sums the time and display it.
+This Extension counts times and cards, display it.
 
 # Required environment
 * [Trello.com](https://trello.com/)
