@@ -9,23 +9,25 @@
   document.body.appendChild(script);
 })(function ($) {
   $(document).ready(function(){
-    function put_time_label(){
-      var time_label = $('<span></span>', {
-        'text':  '? h',
+    function main(){
+      var board_additional = $('<span></span>', {
+        'text':  '?cards / ?h',
         'id':    'time-label',
-        'class': 'board-header-btn-text'
-      })[0];
+        'style': 'font-size: 14px;'
+      });
+
       var calc_btn = $('<a></a>', {
         'text':  'Recalculate',
         'class': 'board-header-btn board-header-btn-without-icon'
       });
-      $('.board-header-btn.board-header-btn-name').append(time_label);
 
       /**
        * calc for all cards
        */
       function calcTotal() {
-        var labels = $('.card-label');
+        var cards  = $('a.list-card');      // all cards
+        var labels = $('span.card-label');  // all labels
+
         var hours = 0;
         $.each(labels, function(k, v){
           var result = v.title.match(/(\d+\.?\d*)h/);
@@ -33,33 +35,40 @@
             hours += parseFloat(result[1]);
           }
         });
-        if (hours > 0) {
-          $('#time_label')[0].innerText = hours + 'h (' + labels.length + 'cards)';
-        } else {
-          $('#time_label')[0].innerText = labels.length + 'cards';
-        }
+
+        // e.g. 3cards / 1.5h
+        $('#time-label')[0].innerText = cards.length + 'cards / ' + hours + 'h';
       }
 
       /**
        * calc for cards each list
        */
       function calcEveryList() {
-        var list = $('.list');
-        $.each(list, function(k, v){
+        $.each($('.list'), function(k, v){
+          var cards  = $(v).find('a.list-card');      // cards of list
+          var labels = $(v).find('span.card-label');  // labels of list
+
           var hours = 0;
-          var labels = $(v).find('.card-label');
           $.each(labels, function(k2, v2){
             var result = v2.title.match(/(\d+\.?\d*)h/);
             if (result != null) {
               hours += parseFloat(result[1]);
             }
           });
+
           var target = $(v).find('.list-header')[0];
-          var time_label = $(target).find('h3')[0];
-          var text = hours + 'h (' + labels.length + 'cards)';
+          var time_label = $(target).find('div.list-header-num-cards')[0];
+
+          var text = cards.length + 'cards / ' + hours + 'h';
+
           if (time_label === undefined) {
-            $(target).append('<h3>' + text + '</h3>');
+            // when time_label doesn't exist yet, append it
+            $(target).append($('<div></div>', {
+              'text':  text,
+              'class': 'list-header-num-cards'
+            }));
           } else {
+            // when time_label exist, update text
             $(time_label)[0].innerText = text;
           }
         });
@@ -69,12 +78,14 @@
         calcTotal();
         calcEveryList();
       }
-
       calc_btn.bind('click', calc);
+
+      $('.board-header-btn.board-header-btn-name').append(board_additional);
       $('div.board-header').append(calc_btn);
+
       calc();
     }
 
-    setTimeout(put_time_label, 1000);
+    setTimeout(main, 1000);
   });
 });
